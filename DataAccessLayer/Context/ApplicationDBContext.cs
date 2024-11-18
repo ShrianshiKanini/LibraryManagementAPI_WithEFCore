@@ -11,9 +11,9 @@ namespace DataAccessLayer.Context
     public class ApplicationDBContext:DbContext
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions) { }
-        DbSet<Users> Users;
-        DbSet<Books> Books;
-        DbSet<RequestedBooks> RequestedBooks;
+        public DbSet<Users> Users { get; set; }
+        public DbSet<Books> Books { get; set; }
+        public DbSet<RequestedBooks> RequestedBooks { get; set; }
 
     }
 }
