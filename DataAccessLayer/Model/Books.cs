@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Model
 {
@@ -11,15 +12,21 @@ namespace DataAccessLayer.Model
         public string Title { get; set; }
 
         [Required]
-        public string AuthorName { get; set; }
+        public int AuthorId { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public virtual Authors Authors { get; set; }
 
         [Required]
-        public string Subject { get; set; }
+        public int GenreId { get; set; }
+
+        [ForeignKey("GenreId")]
+        public virtual Genres Genres { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
-        public bool IsRequested { get; set; }
+        public string BookStatus { get; set; }
     }
 }

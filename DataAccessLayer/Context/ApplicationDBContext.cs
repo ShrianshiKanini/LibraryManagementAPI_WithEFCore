@@ -14,6 +14,9 @@ namespace DataAccessLayer.Context
         public DbSet<Users> Users { get; set; }
         public DbSet<Books> Books { get; set; }
         public DbSet<RequestedBooks> RequestedBooks { get; set; }
+        public DbSet<Authors> Authors { get; set; }
+        public DbSet<Genres> Genres { get; set; }
+        public DbSet<Review> Review { get; set; }
 
     }
 }
