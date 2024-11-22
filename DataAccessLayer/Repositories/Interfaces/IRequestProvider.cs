@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessLayer.DTO;
+using DataAccessLayer.Model;
 
 namespace DataAccessLayer.Repositories.Interfaces
 {
-    internal interface IRequestProvider
+    public interface IRequestProvider
     {
+        Task<List<RequestedBookDetails>> GetAllRequestAsync();
+        Task<RequestedBooks?> SaveRequestAsync(SaveRequestdBook requestDTO);
+        //Task<Books> GetRequestByIdAsync(int id);
+        //Task<Books?> UpdateRequestAsync(Books book);
+        //Task<string?> DeleteRequestAsync(int Id);
     }
 }

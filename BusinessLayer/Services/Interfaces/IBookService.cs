@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessLayer.Model;
+using DataAccessLayer.DTO;
+using DataAccessLayer.Model;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    internal interface IBookService
+    public interface IBookService
     {
+        Task<IEnumerable<BookResponse>> GetAllBooksAsync();
+        Task<Books?> SaveBookAsync(SaveBook book);
+        Task<Books> GetBookByIdAsync(int id);
+        Task<Books?> UpdateBookAsync(SaveBook book);
+        Task<string?> DeleteBookAsync(int Id);
     }
 }

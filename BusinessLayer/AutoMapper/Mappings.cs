@@ -15,6 +15,9 @@ namespace BusinessLayer.AutoMapper
         public Mappings()
         {
             CreateMap<RequestedBookDetails,RequestedBookResponse>();
+            CreateMap<AuthorDetails, AuthorResponse>();
+            CreateMap<GenreDetails, GenreResponse>();
+            CreateMap<BookDetails, BookResponse>();
         }
     }
 }
