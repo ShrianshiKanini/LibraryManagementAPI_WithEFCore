@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    internal class RequestProvider
+    public class RequestProvider
     {
+        
     }
 }

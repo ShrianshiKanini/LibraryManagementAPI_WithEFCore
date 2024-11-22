@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    internal interface IRequestService
+    public interface IRequestService
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Services
 {
-    internal class RequestService
+    public class RequestService
     {
     }
 }
