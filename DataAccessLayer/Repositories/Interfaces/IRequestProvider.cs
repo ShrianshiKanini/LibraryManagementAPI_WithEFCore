@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Interfaces
 {
-    internal interface IRequestProvider
+    public interface IRequestProvider
     {
     }
 }
