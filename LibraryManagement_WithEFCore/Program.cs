@@ -23,10 +23,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddScoped<IBookService, BookService>();
-//builder.Services.AddScoped<IBookProvider, BookProvider>();
+
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookProvider, BookProvider>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRequestProvider, RequestProvider>();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 IMapper mapper = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new Mappings());
