@@ -11,7 +11,7 @@ namespace DataAccessLayer.Repositories.Interfaces
 {
     public interface IBookProvider
     {
-        Task<IEnumerable<BookDetails>> GetAllBooksAsync();
+        Task<List<BookDetails>> GetAllBooksAsync();
         Task<Books?> SaveBookAsync(SaveBook book);
         Task<Books> GetBookByIdAsync(int id);
         Task<Books?> UpdateBookAsync(SaveBook book);

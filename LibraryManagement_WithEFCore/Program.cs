@@ -28,6 +28,11 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookProvider, BookProvider>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRequestProvider, RequestProvider>();
+builder.Services.AddScoped<IAuthorGenreProvider, AuthorGenreProvider>();
+builder.Services.AddScoped<IAuthorGenreService, AuthorGenreService>();
+builder.Services.AddScoped<IReviewProvider, ReviewProvider>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 IMapper mapper = new MapperConfiguration(mc =>

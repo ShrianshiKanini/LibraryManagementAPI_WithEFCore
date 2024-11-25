@@ -18,6 +18,7 @@ namespace BusinessLayer.AutoMapper
             CreateMap<AuthorDetails, AuthorResponse>();
             CreateMap<GenreDetails, GenreResponse>();
             CreateMap<BookDetails, BookResponse>();
+            CreateMap<ReviewDetails, ReviewResponse>();
         }
     }
 }

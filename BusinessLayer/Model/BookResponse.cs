@@ -16,5 +16,6 @@ namespace BusinessLayer.Model
         public string Title { get; set; }
         public string Description { get; set; }
         public string BookStatus { get; set; }
+        public int Ratings { get; set; }
     }
 }

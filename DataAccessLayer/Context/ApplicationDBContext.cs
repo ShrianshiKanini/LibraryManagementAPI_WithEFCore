@@ -1,10 +1,5 @@
 ﻿using DataAccessLayer.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Context
 {
@@ -17,6 +12,19 @@ namespace DataAccessLayer.Context
         public DbSet<Authors> Authors { get; set; }
         public DbSet<Genres> Genres { get; set; }
         public DbSet<Review> Review { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Books>()
+                .HasOne(book => book.Authors)
+                .WithMany(author => author.Books)
+                .HasForeignKey(book => book.AuthorId);
+
+            modelBuilder.Entity<Books>()
+                .HasOne(book => book.Genres)
+                .WithMany(genre => genre.Books)
+                .HasForeignKey(book => book.GenreId);
+        }
 
     }
 }

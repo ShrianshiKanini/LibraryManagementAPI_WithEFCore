@@ -28,5 +28,8 @@ namespace DataAccessLayer.Model
 
         [Required]
         public string BookStatus { get; set; }
+
+        [Required]
+        public int Ratings { get; set; }
     }
 }

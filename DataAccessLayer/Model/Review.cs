@@ -29,6 +29,7 @@ namespace DataAccessLayer.Model
         [Required]
         public string ReviewComments { get; set; }
         [Required]
+        [Range(0, 10)]
         public decimal Ratings {  get; set; }
     }
 }
