@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DataAccessLayer.DTO;
 
 namespace BusinessLayer.Model
 {
@@ -11,5 +8,6 @@ namespace BusinessLayer.Model
         public int Id { get; set; }
         public string AuthorName { get; set; }
         public int Ratings { get; set; }
+        public List<BookDetails> Books { get; set; }
     }
 }

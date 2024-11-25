@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DataAccessLayer.Repositories
 {
-    public class AuthorGenreProvider:IAuthorGenreProvider
+    public class AuthorGenreProvider : IAuthorGenreProvider
     {
         private readonly ApplicationDBContext _context;
         private readonly ILogger<AuthorGenreProvider> _logger;
@@ -17,17 +17,33 @@ namespace DataAccessLayer.Repositories
             _context = context;
             _logger = logger;
         }
-        public async Task<IEnumerable<Authors>> GetAllAuthorsAsync()
+        public async Task<IEnumerable<AuthorDetails>> GetAllAuthorsAsync()
         {
-            var authorDetails = _context.Authors;
+            //var authorDetails = _context.Authors;
             try
             {
-                if (authorDetails == null)
-                {
-                    _logger.LogWarning("No authors found.");
-                    throw new ArgumentNullException("Authors aren't available");
-                }
-                return await authorDetails.ToListAsync();
+                //if (authorDetails == null)
+                //{
+                //    _logger.LogWarning("No authors found.");
+                //    throw new ArgumentNullException("Authors aren't available");
+                //}
+                //var authors = await _context.Authors.Include(author => author.Books).ToListAsync();
+
+                var authors = await _context.Authors
+                              .Include(author => author.Books)
+                              .Select(author => new AuthorDetails
+                              {
+                                  Id = author.Id,
+                                  AuthorName = author.AuthorName,
+                                  Ratings = author.Ratings,
+                                  Books = author.Books.Select(book => new BookDetails
+                                  {
+                                      Id = book.Id,
+                                      Title = book.Title,
+                                      Description = book.Description
+                                  }).ToList()
+                              }).ToListAsync();
+                return authors;
             }
             catch (Exception ex)
             {
@@ -91,8 +107,6 @@ namespace DataAccessLayer.Repositories
                 }
                 existingAuthor.Id = author.Id;
                 existingAuthor.AuthorName = author.AuthorName;
-                existingAuthor.Ratings = author.Ratings;
-                
 
                 await _context.SaveChangesAsync();
                 return existingAuthor;
@@ -128,17 +142,31 @@ namespace DataAccessLayer.Repositories
 
 
         //Genre Provider
-        public async Task<IEnumerable<Genres>> GetAllGenresAsync()
+        public async Task<IEnumerable<GenreDetails>> GetAllGenresAsync()
         {
-            var genres = _context.Genres;
+            //var genres = _context.Genres;
             try
             {
-                if (genres == null)
-                {
-                    _logger.LogWarning("No genres found.");
-                    throw new ArgumentNullException("Genres aren't available");
-                }
-                return await genres.ToListAsync();
+                //if (genres == null)
+                //{
+                //    _logger.LogWarning("No genres found.");
+                //    throw new ArgumentNullException("Genres aren't available");
+                //}
+                //return await genres.ToListAsync();
+                var genres = await _context.Genres
+                              .Include(genre => genre.Books)
+                              .Select(genre => new GenreDetails
+                              {
+                                  Id = genre.Id,
+                                  Genre = genre.Genre,
+                                  Books = genre.Books.Select(book => new BookDetails
+                                  {
+                                      Id = book.Id,
+                                      Title = book.Title,
+                                      Description = book.Description
+                                  }).ToList()
+                              }).ToListAsync();
+                return genres;
             }
             catch (Exception ex)
             {

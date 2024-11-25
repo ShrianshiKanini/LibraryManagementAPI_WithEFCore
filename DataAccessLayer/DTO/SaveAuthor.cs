@@ -10,7 +10,6 @@ namespace DataAccessLayer.DTO
     {
         public int Id { get; set; }
         public string AuthorName { get; set; }
-        public int Ratings { get; set; }
 
     }
 }

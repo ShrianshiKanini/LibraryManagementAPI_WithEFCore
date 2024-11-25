@@ -1,4 +1,6 @@
-﻿using BusinessLayer.Services.Interfaces;
+﻿using AutoMapper;
+using BusinessLayer.Model;
+using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.DTO;
 using DataAccessLayer.Model;
 using DataAccessLayer.Repositories.Interfaces;
@@ -8,14 +10,17 @@ namespace BusinessLayer.Services
     public class AuthorGenreService:IAuthorGenreService
     {
         public readonly IAuthorGenreProvider _repo;
-        public AuthorGenreService(IAuthorGenreProvider repo)
+        private readonly IMapper _mapper;
+        public AuthorGenreService(IAuthorGenreProvider repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<IEnumerable<Authors>> GetAllAuthorsAsync()
+        public async Task<IEnumerable<AuthorResponse>> GetAllAuthorsAsync()
         {
-            var authorDetails = _repo.GetAllAuthorsAsync();
-            return await authorDetails;
+            var authorDetails = await _repo.GetAllAuthorsAsync();
+            var authorData = _mapper.Map<List<AuthorResponse>>(authorDetails);
+            return authorData;
         }
         public async Task<Authors?> SaveAuthorAsync(SaveAuthor author)
         {
@@ -39,10 +44,12 @@ namespace BusinessLayer.Services
         }
 
 
-        public async Task<IEnumerable<Genres>> GetAllGenresAsync()
+        //Genre Services
+        public async Task<IEnumerable<GenreResponse>> GetAllGenresAsync()
         {
-            var genreDetails = _repo.GetAllGenresAsync();
-            return await genreDetails;
+            var genreDetails = await _repo.GetAllGenresAsync();
+            var genreData = _mapper.Map<List<GenreResponse>>(genreDetails);
+            return genreData;
         }
         public async Task<Genres?> SaveGenreAsync(SaveGenre genre)
         {

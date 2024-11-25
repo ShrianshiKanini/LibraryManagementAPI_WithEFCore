@@ -29,41 +29,50 @@ namespace DataAccessLayer.Repositories
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public async Task<IEnumerable<BookDetails>> GetAllBooksAsync()
+        public async Task<List<BookDetails>> GetAllBooksAsync()
         {
-            var booksDetails = from book in _context.Books
-                                        join author in _context.Authors
-                                        on book.AuthorId equals author.Id
-                                        join genre in _context.Genres
-                                        on book.GenreId equals genre.Id
-                                        select new BookDetails
-                                        {
-                                            Id = book.Id,
-                                            AuthorId = book.AuthorId,
-                                            AuthorName = author.AuthorName,
-                                            GenreId = book.GenreId,
-                                            Genre= genre.Genre,
-                                            Title= book.Title,
-                                            Description= book.Description,
-                                            BookStatus= book.BookStatus,
-                                        };
-            return await booksDetails.ToListAsync();
+            //var booksDetails = from book in _context.Books
+            //                            join author in _context.Authors
+            //                            on book.AuthorId equals author.Id
+            //                            join genre in _context.Genres
+            //                            on book.GenreId equals genre.Id
+            //                            select new BookDetails
+            //                            {
+            //                                Id = book.Id,
+            //                                AuthorId = book.AuthorId,
+            //                                AuthorName = author.AuthorName,
+            //                                GenreId = book.GenreId,
+            //                                Genre= genre.Genre,
+            //                                Title= book.Title,
+            //                                Description= book.Description,
+            //                                BookStatus= book.BookStatus,
+            //                            };
+            //return await booksDetails.ToListAsync();
 
-            //var books = _context.Books;
-            //try 
-            //{
-            //    if (books == null)
-            //    {
-            //        _logger.LogWarning("No books found.");
-            //        throw new ArgumentNullException("Books aren't available");
-            //    }
-            //    return await books.ToListAsync();
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, "An error occurred while retrieving all books.");
-            //    throw new InvalidOperationException("Unable to fetch books. Please try again later.");
-            //}
+
+            var booksDetails1 = await _context.Books
+                                  .Join(_context.Authors,
+                                        book => book.AuthorId,
+                                        author => author.Id,
+                                       (book, author) => new { book, author })
+                                  .Join(_context.Genres,
+                                        joined => joined.book.GenreId,
+                                        genre => genre.Id,
+                                       (joined, genre) => new BookDetails
+                                       {
+                                           Id = joined.book.Id,
+                                           AuthorId = joined.book.AuthorId,
+                                           GenreId = joined.book.GenreId,
+                                           AuthorName = joined.author.AuthorName,
+                                           Genre = genre.Genre,
+                                           Title = joined.book.Title,
+                                           Description = joined.book.Description,
+                                           BookStatus = joined.book.BookStatus,
+                                           Ratings = joined.book.Ratings,
+                                       })
+                                .ToListAsync();
+
+            return booksDetails1;
 
         }
 

@@ -17,7 +17,7 @@ namespace BusinessLayer.Services
             _repo = repo;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<IEnumerable<BookResponse>> GetAllBooksAsync()
+        public async Task<List<BookResponse>> GetAllBooksAsync()
         {
             var bookDetails = await _repo.GetAllBooksAsync();
             var bookData = _mapper.Map<List<BookResponse>>(bookDetails);

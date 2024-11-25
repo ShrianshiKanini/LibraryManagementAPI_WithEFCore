@@ -7,7 +7,7 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookResponse>> GetAllBooksAsync();
+        Task<List<BookResponse>> GetAllBooksAsync();
         Task<Books?> SaveBookAsync(SaveBook book);
         Task<Books> GetBookByIdAsync(int id);
         Task<Books?> UpdateBookAsync(SaveBook book);
