@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.DTO;
+using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BusinessLayer.Services.Interfaces
 {
     public  interface IUserService
     {
-        Task<IEnumerable<Users>?> GetAllUsers();
+        Task<IEnumerable<UserDetails>?> GetAllUsers();
 
         Task<Users?> GetUserById(int id);
         Task<Users?> GetUserByName(string name);

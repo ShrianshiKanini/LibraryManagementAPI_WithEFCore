@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Context;
+using DataAccessLayer.DTO;
 using DataAccessLayer.Model;
 using DataAccessLayer.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DataAccessLayer.Repositories
 {
@@ -21,9 +23,39 @@ namespace DataAccessLayer.Repositories
             _context = context;
         }
 
-       public async Task<IEnumerable<Users>?> GetAllUsers()
+       public async Task<IEnumerable<UserDetails>?> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+
+            // Fetch all requested books
+            var requestedBooks = await _context.RequestedBooks.ToListAsync();
+
+            var books = await _context.Books.ToListAsync();
+
+            // Map users with their respective requested books
+            var usersWithBooks = users.Select(user => new UserDetails
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Role = user.Role,
+                Email = user.Email,
+                RequestedBooks = requestedBooks
+                    .Where(rb => rb.UserId == user.Id) // Filter books by UserId
+                    .Select(rb => new RequestedBookDetails
+                    {
+                        UserId = rb.UserId,
+                        BookId = rb.BookId,
+                        UserName = user.Name,
+                        BookName = books.FirstOrDefault(b => b.Id == rb.BookId)?.Title,
+                        RequestDate = rb.RequestDate,
+                        ReturnDate = rb.Returndate,
+                        RequestStatus = rb.RequestStatus
+                    })
+                    .ToList()
+            }).ToList();
+
+            return usersWithBooks;
+
         }
 
 
