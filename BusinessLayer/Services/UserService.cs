@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Services.Interfaces;
+using DataAccessLayer.DTO;
 using DataAccessLayer.Model;
 using DataAccessLayer.Repositories.Interfaces;
 using System;
@@ -18,7 +19,7 @@ namespace BusinessLayer.Services
             _userProvider = userProvider;
         }
 
-        public async Task<IEnumerable<Users>?> GetAllUsers()
+        public async Task<IEnumerable<UserDetails>?> GetAllUsers()
         {
             return await _userProvider.GetAllUsers();
         }

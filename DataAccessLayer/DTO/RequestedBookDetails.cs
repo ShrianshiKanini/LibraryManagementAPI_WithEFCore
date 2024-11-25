@@ -9,7 +9,7 @@ namespace DataAccessLayer.DTO
         public string BookName { get; set; }
         public string UserName { get; set; }
         public DateTime RequestDate { get; set; }
-        public DateTime Returndate { get; set; }
+        public DateTime ReturnDate { get; set; }
         public bool RequestStatus { get; set; }
     }
 }

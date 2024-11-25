@@ -24,9 +24,12 @@ namespace DataAccessLayer.Model
         [Required]
         [Phone]
         public string Phone { get; set; }
+
         public virtual ICollection<RequestedBooks> RequestedBooks { get; set; } = new List<RequestedBooks>();
 
         public virtual ICollection<UserHistory> UserHistories { get; set; } = new List<UserHistory>();
+
+        
 
 
     }
